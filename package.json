@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha test.mjs",
+    "test-junit": "node_modules/mocha/bin/mocha --reporter node_modules/mocha-junit-reporter --reporter-options jenkinsMode=1,outputs=1,mochaFile=results/mocha-test-results.xml test.mjs",
+    "test-report": "npx testmo automation:run:submit --instance $TESTMO_URL --project-id 1 --name 'Selenium test run for \"$BROWSER\"' --config '$BROWSER' --source 'frontend' --results results/*.xml",
+    "test-ci": "npx testmo automation:run:submit --instance $TESTMO_URL --project-id 1 --name 'Selenium test run for \"$BROWSER\"' --config '$BROWSER' --source 'frontend' --results results/*.xml -- npm run test-junit"
+  },
+  "devDependencies": {
+    "@testmo/testmo-cli": "^1.0.8",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "mocha-junit-reporter": "^2.0.2",
+    "selenium-webdriver": "^4.1.0"
+  }
+}

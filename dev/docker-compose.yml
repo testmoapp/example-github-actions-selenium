@@ -1,0 +1,26 @@
+version: '3'
+services:
+  chrome:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444 # Selenium service
+      - 5900:5900 # VNC server
+      - 7900:7900 # VNC browser client
+  firefox:
+    image: selenium/standalone-firefox
+    ports:
+      - 4445:4444 # Selenium service
+      - 5901:5900 # VNC server
+      - 7901:7900 # VNC browser client
+  edge:
+    image: selenium/standalone-edge
+    ports:
+      - 4446:4444 # Selenium service
+      - 5902:5900 # VNC server
+      - 7902:7900 # VNC browser client
+  node:
+    image: node:16
+    volumes:
+      - ./../:/project
+    working_dir: /project
+    tty: true
