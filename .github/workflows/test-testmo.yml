@@ -1,0 +1,38 @@
+name: Test (testmo)
+
+on: [workflow_dispatch]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    container:
+      image: node:16
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ['chrome', 'firefox', 'edge']
+
+    services:
+      selenium:
+        image: selenium/standalone-${{ matrix.browser }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test-ci
+        env:
+          BROWSER: ${{ matrix.browser }}
+          TESTMO_URL: ${{ secrets.TESTMO_URL }}
+          TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: ${{ matrix.browser }}
+          path: screenshots/

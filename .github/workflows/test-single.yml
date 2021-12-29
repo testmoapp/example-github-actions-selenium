@@ -1,0 +1,41 @@
+name: Test (single)
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        type: choice
+        description: Which browser to test
+        required: true
+        options:
+          - chrome
+          - firefox
+          - edge
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    container:
+      image: node:16
+
+    services:
+      selenium:
+        image: selenium/standalone-${{ github.event.inputs.browser }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test
+        env:
+          BROWSER: ${{ github.event.inputs.browser }}
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: screenshots
+          path: screenshots/
