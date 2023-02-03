@@ -1,7 +1,7 @@
 version: '3'
 services:
   chrome:
-    image: selenium/standalone-chrome:94
+    image: selenium/standalone-chrome:94.0
     ports:
       - 4444:4444 # Selenium service
       - 5900:5900 # VNC server
