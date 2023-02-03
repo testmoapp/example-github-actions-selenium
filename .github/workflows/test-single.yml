@@ -23,8 +23,6 @@ jobs:
     services:
       selenium:
         image: selenium/standalone-${{ github.event.inputs.browser }}
-        environment:
-          - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
 
     steps:
       - uses: actions/checkout@v3
