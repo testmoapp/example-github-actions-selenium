@@ -1,19 +1,22 @@
 version: '3'
 services:
   chrome:
-    image: selenium/standalone-chrome:94.0
+    image: selenium/standalone-chrome
+    options: --shm-size=2gb
     ports:
       - 4444:4444 # Selenium service
       - 5900:5900 # VNC server
       - 7900:7900 # VNC browser client
   firefox:
-    image: selenium/standalone-firefox:3
+    image: selenium/standalone-firefox
+    options: --shm-size=2gb
     ports:
       - 4445:4444 # Selenium service
       - 5901:5900 # VNC server
       - 7901:7900 # VNC browser client
   edge:
-    image: selenium/standalone-edge:3
+    image: selenium/standalone-edge
+    options: --shm-size=2gb
     ports:
       - 4446:4444 # Selenium service
       - 5902:5900 # VNC server
