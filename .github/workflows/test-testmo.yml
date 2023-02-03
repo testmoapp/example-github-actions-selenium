@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: node:16
+      image: node:19
 
     strategy:
       fail-fast: false
@@ -20,12 +20,29 @@ jobs:
         image: selenium/standalone-${{ matrix.browser }}
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '19'
           cache: 'npm'
       - run: npm ci
+
+      # Check if the required variables are available
+      - run: |
+          if [[ -z "${TESTMO_URL}" ]]; then
+            echo "The TESTMO_URL secret is not defined for this repository"
+            exit 1
+          fi
+
+          if [[ -z "${TESTMO_TOKEN}" ]]; then
+            echo "The TESTMO_TOKEN secret is not defined for this repository"
+            exit 1
+          fi
+        env:
+          TESTMO_URL: ${{ secrets.TESTMO_URL }}
+          TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+
+      # Run tests and report results to Testmo
       - run: npm run test-ci
         env:
           BROWSER: ${{ matrix.browser }}
