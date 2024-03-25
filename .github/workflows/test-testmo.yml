@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
+      matrix: 
         browser: ['chrome', 'firefox', 'edge']
 
     services:
