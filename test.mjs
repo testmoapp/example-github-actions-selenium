@@ -6,7 +6,7 @@ describe('search', async function () {
     this.timeout(10000);
     let driver;
 
-    if (!fs.existsSync('./screenshots')){
+    if (!fs.existsSync('./screenshots')) {
         fs.mkdirSync('./screenshots');
     }
 
@@ -15,26 +15,25 @@ describe('search', async function () {
         // Automate DuckDuckGo search
         await driver.get('https://duckduckgo.com/');
         const searchBox = await driver.findElement(
-            By.id('search_form_input_homepage'));
+            By.id('searchbox_input'));
         await searchBox.sendKeys(term, Key.ENTER);
 
         // Wait until the result page is loaded
-        await driver.wait(until.elementLocated(By.css('#links .result')));
+        await driver.wait(until.elementLocated(By.css('#more-results')));
 
         // Return page content
-        const body = await driver.findElement(By.tagName('body'));
-        return await body.getText();
+        return await driver.getPageSource();
     };
 
     // Make sure the BROWSER env variable is set
-    before(async function() {
+    before(async function () {
         if (!process.env.BROWSER) {
             throw new Error('No BROWSER environment variable set')
         }
     });
 
     // Before each test, initialize Selenium and launch the browser
-    beforeEach(async function() {
+    beforeEach(async function () {
         // Microsoft uses a longer name for Edge
         let browser = process.env.BROWSER;
         if (browser == 'edge') {

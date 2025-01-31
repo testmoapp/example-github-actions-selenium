@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: node:19
+      image: node:20
 
     strategy:
       fail-fast: false
@@ -21,10 +21,10 @@ jobs:
         options: --shm-size=2gb
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '19'
+          node-version: '20'
           cache: 'npm'
       - run: npm ci
 
