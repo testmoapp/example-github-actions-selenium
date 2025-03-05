@@ -6,7 +6,7 @@
         "test-ci": "npx testmo automation:run:submit --instance '$TESTMO_URL' --project-id 1 --name 'Selenium test run for \"$BROWSER\"' --source 'frontend' --results results/*.xml -- npm run test-junit"
     },
     "devDependencies": {
-        "@testmo/testmo-cli": "^1.2.0",
+        "@testmo/testmo-cli": "^1.4.4",
         "chai": "^4.3.7",
         "mocha": "^10.8.2",
         "mocha-junit-reporter": "^2.2.0",
