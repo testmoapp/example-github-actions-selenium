@@ -22,7 +22,7 @@ services:
       - 5902:5900 # VNC server
       - 7902:7900 # VNC browser client
   node:
-    image: node:19
+    image: node:23
     volumes:
       - ./../:/project
     working_dir: /project
